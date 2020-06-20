@@ -1,17 +1,10 @@
-# Hack_the_box_note
-Take some hack the box notes with some old friends 👀
+## About
+项目用于记录 Hack the box 的渗透流程以及一些想法。
 
-![](./image/1.jpg)
-
-
-## Old friends
-
-+ Docupa
-
-+ loginyourheart
-
-+ kurokoleung
-
-### ふていき記事
-
-> JXU2MjExJXU4QkY0JXU0RUZCJXU1OTI5JXU1ODAyJXU1OTI5JXU0RTBCJXU3QjJDJXU0RTAwJXU2Q0ExJXU2NzA5JXU4QzAxJXU2NzA5JXU2MTBGJXU4OUMxJXU1NDI3
+目录结构
++ wp
+    + [Archetype](./wp/Archetype)
+    + [Oopsie](./wp/Oopsie)
+    + [Pathfinder](./wp/Pathfinder)
++ 针对相应组件的渗透方式
+    + [smb](./aim_to_module/smb)
